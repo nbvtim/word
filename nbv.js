@@ -28,7 +28,7 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
             obj['w:t']= {}
         }
 
-        if(el.match(/\<\/w:p\>/)){
+        if(el.match(/\<\/w:p\>/)){ 
             wp[1] = i
         }
 
