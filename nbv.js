@@ -7,17 +7,25 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
     let zip = new AdmZip(p)
     let xml = zip.readAsText("word/document.xml")
     xml = xml.replace(/\<w:p /g, "\n<w:p ").split("\n")
+    fs.writeFileSync("./1.xml", xml.join("\n"))
+
 
     //      .match(/\d?\d\.\d?\d\.(\d\d)?\d\d \d?\d:\d\d/)
     //      .match(/\<\/w:p\>/)
     //      .replace(/<\/w:t>/g, "").replace(/<w:t>/g, "").replace(/<w:t xml:space="preserve">/g, "")
 
     let txt = ""
+    let wpStartID
+    let wpEndId
     xml.forEach((el,i)=>{
         pr = el.replace(/\>\</g, ">\n<").split("\n")
         if(txt.match(/\d?\d\.\d?\d\.(\d\d)?\d\d \d?\d:\d\d(.+)?/)){
-            c(i,txt)
+            wpStartID =     i - 1
         }
+        if(txt.match(/Начальник смены СВК/)){
+            wpEndId =       i - 1
+        }
+
         txt = ""
 
         pr.forEach((ell,ii)=>{
@@ -27,7 +35,10 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
         })
 
     })
-    fs.writeFileSync("./1.xml", xml.join("\n")) 
+    c( wpStartID , xml[wpStartID ]      )
+    c( wpEndId-2 , xml[wpEndId-2 ]      )
+    c( wpEndId   , xml[wpEndId   ]      )
+
 
 
 
