@@ -35,12 +35,20 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
         })
 
     })
-    c( wpStartID , xml[wpStartID ]      )
-    c( wpEndId-2 , xml[wpEndId-2 ]      )
-    c( wpEndId   , xml[wpEndId   ]      )
+    // c( wpStartID , xml[wpStartID ]      )
+    // c( wpEndId-2 , xml[wpEndId-2 ]      )
+    // c( wpEndId   , xml[wpEndId   ]      )
 
+    // 
 
+    let ms = [0,1,2,3,4,5]
+    let mss = ["11", "22", "33"]
 
+    ms.splice(4 ,0 , ...mss, "44")
+    c(ms)
+
+    ms = ms.slice(4,8)
+    c(ms)
 
 
 
