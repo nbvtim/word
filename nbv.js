@@ -26,7 +26,7 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
             wpStartID   =   i-1
         }
         if(txt.match(/Начальник смены СВК/)){
-            wpEndID     =   i
+            wpEndID     =   i-1
         }
 
         txt = ""
@@ -39,46 +39,17 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
 
     })
 
-    for(i = wpStartID; i < wpEndID; i++){
+    for(i = wpStartID; i <= wpEndID; i++){
         w_body.push(xml[i])
     }
 
-    result_XML = [...w_documentSart, ...w_body, ...w_documentEnd].join("\n")
+    result_XML = [...w_documentSart, ...w_body, ...w_documentEnd]
 
-    // fs.writeFileSync("./1.xml", result_XML.join("\n"))
 
     fs.copyFileSync(p, __dirname+"/out.docx")
     let outZip = new AdmZip(__dirname+"/out.docx")
-    outZip.addFile("word/document.xml", result_XML, "NBV")
+    outZip.addFile("word/document.xml", result_XML.join("\n"), "NBV")
     outZip.writeZip(__dirname+"/out.docx")
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // xml = xml.join("\n")
-    // fs.writeFileSync("./1.xml", xml)
-
-    // zip.addFile("word/document.xml", fs.readFileSync("./1.xml", "utf-8"), "NBV")
-    // zip.writeZip("./1.docx")
 
 }
 writeDocx()
-
-
-
-
-// let ms = [0,1,2,3,4,5,6,7,8,9]
-// let mss = []
-// for(i=4; i<=8; i++){
-//     mss.push(ms[i])
-// }
-// c(mss)
