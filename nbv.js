@@ -7,23 +7,26 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
     let zip = new AdmZip(p)
     let xml = zip.readAsText("word/document.xml")
     xml = xml.replace(/\<w:p /g, "\n<w:p ").split("\n")
-    fs.writeFileSync("./1.xml", xml.join("\n"))
+    xml.push(...xml.pop().replace("<\/w:p>", "<\/w:p>\n").split("\n"))
+    let w_documentSart = [xml[0],xml[1]]
+    let w_documentEnd  = [xml[xml.length-1]]
+    let w_body = []
 
-
+    //      fs.writeFileSync("./1.xml", xml.join("\n"))
     //      .match(/\d?\d\.\d?\d\.(\d\d)?\d\d \d?\d:\d\d/)
     //      .match(/\<\/w:p\>/)
     //      .replace(/<\/w:t>/g, "").replace(/<w:t>/g, "").replace(/<w:t xml:space="preserve">/g, "")
 
     let txt = ""
     let wpStartID
-    let wpEndId
+    let wpEndID
     xml.forEach((el,i)=>{
         pr = el.replace(/\>\</g, ">\n<").split("\n")
         if(txt.match(/\d?\d\.\d?\d\.(\d\d)?\d\d \d?\d:\d\d(.+)?/)){
-            wpStartID =     i - 1
+            wpStartID   =   i-1
         }
         if(txt.match(/Начальник смены СВК/)){
-            wpEndId =       i - 1
+            wpEndID     =   i
         }
 
         txt = ""
@@ -35,29 +38,29 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
         })
 
     })
-    // c( wpStartID , xml[wpStartID ]      )
-    // c( wpEndId-2 , xml[wpEndId-2 ]      )
-    // c( wpEndId   , xml[wpEndId   ]      )
 
-    // 
+    for(i = wpStartID; i < wpEndID; i++){
+        w_body.push(xml[i])
+    }
 
-    let ms = [0,1,2,3,4,5]
-    let mss = ["11", "22", "33"]
+    result_XML = [...w_documentSart, ...w_body, ...w_documentEnd].join("\n")
 
-    ms.splice(4 ,0 , ...mss, "44")
-    c(ms)
+    // fs.writeFileSync("./1.xml", result_XML.join("\n"))
 
-    ms = ms.slice(4,8)
-    c(ms)
-
+    fs.copyFileSync(p, __dirname+"/out.docx")
+    let outZip = new AdmZip(__dirname+"/out.docx")
+    outZip.addFile("word/document.xml", result_XML, "NBV")
+    outZip.writeZip(__dirname+"/out.docx")
 
 
 
 
 
-    // for(i = wpStart; i < xml.length; i++){
-    //     c(i,xml[i])
-    // }
+
+
+
+
+
 
 
 
@@ -70,3 +73,12 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
 }
 writeDocx()
 
+
+
+
+// let ms = [0,1,2,3,4,5,6,7,8,9]
+// let mss = []
+// for(i=4; i<=8; i++){
+//     mss.push(ms[i])
+// }
+// c(mss)
