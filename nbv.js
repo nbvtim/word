@@ -53,3 +53,4 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
 
 }
 writeDocx()
+c(process.platform)
