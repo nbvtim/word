@@ -53,4 +53,17 @@ function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортов�
 
 }
 writeDocx()
-c(process.platform)
+
+
+function qqq(){
+    let zip = new AdmZip(__dirname+"/out.docx").readAsText("word/document.xml").split("\n")
+    
+    // fs.writeFileSync("./1.xml", zip.join("\n"))
+    
+    
+    zip.forEach((el,i)=>{
+        el = el.replace(/></g, ">\n<")
+    })
+
+}
+qqq()
