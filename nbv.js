@@ -2,7 +2,7 @@ const c = console.log
 const fs = require('fs')
 const AdmZip = require("adm-zip")
 
-function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортовой журнал 11 ноябрь 2025.docx"){
+function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортовой журнал 01 январь 2026.docx"){
 
     let zip = new AdmZip(p)
     let xml = zip.readAsText("word/document.xml")
