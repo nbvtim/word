@@ -3,7 +3,7 @@ const fs = require('fs')
 const AdmZip = require("adm-zip")
 
 function writeDocx(p = "/mnt/c/Users/User/Desktop/БОРТОВОЙ/Бортовой журнал 01 январь 2026.docx"){
-
+    
     let zip = new AdmZip(p)
     let xml = zip.readAsText("word/document.xml")
     xml = xml.replace(/\<w:p /g, "\n<w:p ").split("\n")
