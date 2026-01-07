@@ -1,5 +1,5 @@
 let c  = console.log
-let j = `{  
+let j = {  
     "john": {  
       "username": "John",  
       "location": "London",  
@@ -24,6 +24,6 @@ let j = `{
       "online": true,  
       "followers": 654  
     }  
-  }`
+  }
 
-c(JSON.stringify(j))
+c(Buffer.from(JSON.stringify(j), "utf-8"))
